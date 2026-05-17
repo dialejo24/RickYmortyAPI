@@ -4,6 +4,10 @@
   min-height: 100vh;
 }
 
+.grid-personajes {
+  justify-content: center;
+}
+
 @media (max-width: 600px) {
   .inicio-contenedor {
     padding-left: 1rem;

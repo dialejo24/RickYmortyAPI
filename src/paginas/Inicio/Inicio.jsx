@@ -44,7 +44,7 @@ const Inicio = () => {
         </Box>
       ) : (
         <>
-          <Grid container spacing={3} justifyContent="center">
+          <Grid container spacing={3} className="grid-personajes">
             {personajes.map((personaje) => (
               <Grid item key={personaje.id} xs={12} sm={6} md={4} lg={3} display="flex" justifyContent="center">
                 <TarjetaPersonaje personaje={personaje} />
