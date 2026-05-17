@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   AppBar, 
   Toolbar, 
@@ -24,8 +25,16 @@ const Navegacion = () => {
   const [anclaMenu, setAnclaMenu] = useState(null);
   const [movilAbierto, setMovilAbierto] = useState(false);
   const [submenuAbierto, setSubmenuAbierto] = useState(false);
+  const navegar = useNavigate();
 
   const abierto = Boolean(anclaMenu);
+
+  const manejarClickEspecie = (especie) => {
+    const ruta = especie ? `/especie/${especie}` : '/';
+    navegar(ruta);
+    manejarCerrarMenu();
+    if (movilAbierto) setMovilAbierto(false);
+  };
 
   const manejarAbrirMenu = (evento) => {
     setAnclaMenu(evento.currentTarget);
@@ -45,9 +54,9 @@ const Navegacion = () => {
 
   const itemsNavegacion = (
     <>
-      <Button color="inherit" sx={{ '&:hover': { color: '#00ff00' } }}>Inicio</Button>
-      <Button color="inherit" sx={{ '&:hover': { color: '#00ff00' } }}>Humanos</Button>
-      <Button color="inherit" sx={{ '&:hover': { color: '#00ff00' } }}>Alienígenas</Button>
+      <Button component={Link} to="/" color="inherit" sx={{ '&:hover': { color: '#00ff00' } }}>Inicio</Button>
+      <Button component={Link} to="/especie/human" color="inherit" sx={{ '&:hover': { color: '#00ff00' } }}>Humanos</Button>
+      <Button component={Link} to="/especie/alien" color="inherit" sx={{ '&:hover': { color: '#00ff00' } }}>Alienígenas</Button>
       <Button
         color="inherit"
         onClick={manejarAbrirMenu}
@@ -64,9 +73,9 @@ const Navegacion = () => {
           sx: { backgroundColor: '#3c3e44', color: 'white' }
         }}
       >
-        <MenuItem onClick={manejarCerrarMenu}>Robot</MenuItem>
-        <MenuItem onClick={manejarCerrarMenu}>Cronenberg</MenuItem>
-        <MenuItem onClick={manejarCerrarMenu}>Desconocido</MenuItem>
+        <MenuItem onClick={() => manejarClickEspecie('robot')}>Robot</MenuItem>
+        <MenuItem onClick={() => manejarClickEspecie('cronenberg')}>Cronenberg</MenuItem>
+        <MenuItem onClick={() => manejarClickEspecie('unknown')}>Desconocido</MenuItem>
       </Menu>
     </>
   );
@@ -78,17 +87,17 @@ const Navegacion = () => {
       </Typography>
       <List>
         <ListItem disablePadding>
-          <ListItemButton onClick={manejarAlternarMovil}>
+          <ListItemButton component={Link} to="/" onClick={manejarAlternarMovil}>
             <ListItemText primary="Inicio" />
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton onClick={manejarAlternarMovil}>
+          <ListItemButton component={Link} to="/especie/human" onClick={manejarAlternarMovil}>
             <ListItemText primary="Humanos" />
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton onClick={manejarAlternarMovil}>
+          <ListItemButton component={Link} to="/especie/alien" onClick={manejarAlternarMovil}>
             <ListItemText primary="Alienígenas" />
           </ListItemButton>
         </ListItem>
@@ -100,13 +109,13 @@ const Navegacion = () => {
         </ListItem>
         <Collapse in={submenuAbierto} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItemButton sx={{ pl: 4 }} onClick={manejarAlternarMovil}>
+            <ListItemButton sx={{ pl: 4 }} onClick={() => manejarClickEspecie('robot')}>
               <ListItemText primary="Robot" />
             </ListItemButton>
-            <ListItemButton sx={{ pl: 4 }} onClick={manejarAlternarMovil}>
+            <ListItemButton sx={{ pl: 4 }} onClick={() => manejarClickEspecie('cronenberg')}>
               <ListItemText primary="Cronenberg" />
             </ListItemButton>
-            <ListItemButton sx={{ pl: 4 }} onClick={manejarAlternarMovil}>
+            <ListItemButton sx={{ pl: 4 }} onClick={() => manejarClickEspecie('unknown')}>
               <ListItemText primary="Desconocido" />
             </ListItemButton>
           </List>
