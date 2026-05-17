@@ -1,3 +1,7 @@
+## Demo en vivo
+Puede ver la aplicación funcionando aquí:
+[https://rick-ymorty-api.vercel.app/](https://rick-ymorty-api.vercel.app/)
+
 ## Configuración y Ejecución
 
 Sigue los siguientes pasos para poner en marcha el proyecto en entorno local:
