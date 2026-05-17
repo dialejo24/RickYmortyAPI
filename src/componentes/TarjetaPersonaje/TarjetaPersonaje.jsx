@@ -8,7 +8,6 @@ const TarjetaPersonaje = ({ personaje }) => {
 
   const { id, name, status, species, gender, image } = personaje;
 
-  // Mapeo simple de colores para el estado
   const colorEstado = status === 'Alive' ? '#4caf50' : status === 'Dead' ? '#f44336' : '#9e9e9e';
 
   const manejarClick = () => {

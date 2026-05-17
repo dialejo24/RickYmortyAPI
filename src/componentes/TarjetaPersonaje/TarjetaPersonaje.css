@@ -9,7 +9,6 @@
   box-shadow: 0 8px 16px rgba(0,0,0,0.4) !important;
 }
 
-/* Ajustes para que MUI sea responsivo dentro de nuestro contenedor */
 @media (max-width: 600px) {
   .tarjeta-personaje-raiz {
     max-width: 100% !important;

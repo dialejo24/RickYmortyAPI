@@ -38,7 +38,6 @@ const Inicio = () => {
     }
   };
 
-  // Efecto para limpiar la página cuando cambia la especie
   useEffect(() => {
     if (searchParams.get('pagina')) {
       setSearchParams({});
