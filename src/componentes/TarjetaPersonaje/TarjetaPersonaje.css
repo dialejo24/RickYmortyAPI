@@ -1,0 +1,54 @@
+.tarjeta-personaje {
+  background-color: #3c3e44;
+  border-radius: 0.5rem;
+  margin: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+  max-width: 300px;
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s;
+}
+
+.tarjeta-personaje:hover {
+  transform: translateY(-5px);
+}
+
+.tarjeta-imagen {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.tarjeta-info {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tarjeta-nombre {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #ff9800;
+}
+
+.tarjeta-info p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Responsividad básica */
+@media (min-width: 600px) {
+  .tarjeta-personaje {
+    max-width: 250px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tarjeta-personaje {
+    max-width: 300px;
+  }
+}
