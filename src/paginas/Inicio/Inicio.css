@@ -1,0 +1,12 @@
+.inicio-contenedor {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  min-height: 100vh;
+}
+
+@media (max-width: 600px) {
+  .inicio-contenedor {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

@@ -1,7 +1,10 @@
+import Inicio from './paginas/Inicio/Inicio';
+import './App.css';
+
 function App() {
   return (
     <div className="contenedor-principal">
-      <h1>Rick and Morty API</h1>
+      <Inicio />
     </div>
   )
 }
