@@ -13,12 +13,13 @@ const Inicio = () => {
   const [totalPaginas, setTotalPaginas] = useState(0);
 
   const paginaActual = parseInt(searchParams.get('pagina')) || 1;
+  const nombreBusqueda = searchParams.get('nombre') || '';
 
-  const obtenerPersonajes = async (numeroPagina, filtroEspecie) => {
+  const obtenerPersonajes = async (numeroPagina, filtroEspecie, filtroNombre) => {
     setCargando(true);
     try {
       const valorEspecie = filtroEspecie || '';
-      const url = `https://rickandmortyapi.com/api/character?page=${numeroPagina}&species=${valorEspecie}`;
+      const url = `https://rickandmortyapi.com/api/character?page=${numeroPagina}&species=${valorEspecie}&name=${filtroNombre}`;
       const respuesta = await fetch(url);
       const datos = await respuesta.json();
       
@@ -39,23 +40,27 @@ const Inicio = () => {
   };
 
   useEffect(() => {
-    if (searchParams.get('pagina')) {
+    if (searchParams.get('pagina') && !searchParams.get('nombre')) {
       setSearchParams({});
     }
   }, [especie, setSearchParams]);
 
   useEffect(() => {
-    obtenerPersonajes(paginaActual, especie);
-  }, [paginaActual, especie]);
+    obtenerPersonajes(paginaActual, especie, nombreBusqueda);
+  }, [paginaActual, especie, nombreBusqueda]);
 
   const manejarCambioPagina = (evento, valor) => {
-    setSearchParams({ pagina: valor });
+    const nuevosParams = { pagina: valor };
+    if (nombreBusqueda) nuevosParams.nombre = nombreBusqueda;
+    setSearchParams(nuevosParams);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const tituloSeccion = especie 
-    ? `Personajes: ${especie.charAt(0).toUpperCase() + especie.slice(1)}` 
-    : 'Todos los Personajes';
+  const tituloSeccion = nombreBusqueda
+    ? `Resultados para: ${nombreBusqueda}`
+    : especie 
+      ? `Personajes: ${especie.charAt(0).toUpperCase() + especie.slice(1)}` 
+      : 'Todos los Personajes';
 
   return (
     <Container maxWidth="xl" className="inicio-contenedor">

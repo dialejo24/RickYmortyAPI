@@ -14,17 +14,21 @@ import {
   ListItem, 
   ListItemButton, 
   ListItemText,
-  Collapse
+  Collapse,
+  TextField,
+  InputAdornment
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import SearchIcon from '@mui/icons-material/Search';
 
 const Navegacion = () => {
   const [anclaMenu, setAnclaMenu] = useState(null);
   const [movilAbierto, setMovilAbierto] = useState(false);
   const [submenuAbierto, setSubmenuAbierto] = useState(false);
+  const [terminoBusqueda, setTerminoBusqueda] = useState('');
   const navegar = useNavigate();
 
   const abierto = Boolean(anclaMenu);
@@ -52,6 +56,43 @@ const Navegacion = () => {
     setSubmenuAbierto(!submenuAbierto);
   };
 
+  const manejarBusqueda = (evento) => {
+    evento.preventDefault();
+    if (terminoBusqueda.trim()) {
+      navegar(`/?nombre=${terminoBusqueda.trim()}`);
+      setTerminoBusqueda('');
+      if (movilAbierto) setMovilAbierto(false);
+    }
+  };
+
+  const buscador = (
+    <Box component="form" onSubmit={manejarBusqueda} sx={{ ml: { xs: 0, sm: 2 }, mt: { xs: 2, sm: 0 } }}>
+      <TextField
+        size="small"
+        placeholder="Buscar..."
+        value={terminoBusqueda}
+        onChange={(e) => setTerminoBusqueda(e.target.value)}
+        sx={{
+          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          borderRadius: 1,
+          '& .MuiOutlinedInput-root': {
+            color: 'white',
+            '& fieldset': { borderColor: 'transparent' },
+            '&:hover fieldset': { borderColor: '#00ff00' },
+            '&.Mui-focused fieldset': { borderColor: '#00ff00' },
+          }
+        }}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon sx={{ color: '#9e9e9e' }} />
+            </InputAdornment>
+          ),
+        }}
+      />
+    </Box>
+  );
+
   const itemsNavegacion = (
     <>
       <Button component={Link} to="/" color="inherit" sx={{ '&:hover': { color: '#00ff00' } }}>Inicio</Button>
@@ -77,15 +118,17 @@ const Navegacion = () => {
         <MenuItem onClick={() => manejarClickEspecie('cronenberg')}>Cronenberg</MenuItem>
         <MenuItem onClick={() => manejarClickEspecie('unknown')}>Desconocido</MenuItem>
       </Menu>
+      {buscador}
     </>
   );
 
   const contenidoMenuMovil = (
-    <Box sx={{ width: 250, backgroundColor: '#202329', height: '100%', color: 'white' }}>
-      <Typography variant="h6" sx={{ p: 2, color: '#00ff00', fontWeight: 'bold' }}>
+    <Box sx={{ width: 250, backgroundColor: '#202329', height: '100%', color: 'white', p: 2 }}>
+      <Typography variant="h6" sx={{ mb: 2, color: '#00ff00', fontWeight: 'bold' }}>
         RM-API
       </Typography>
-      <List>
+      {buscador}
+      <List sx={{ mt: 2 }}>
         <ListItem disablePadding>
           <ListItemButton component={Link} to="/" onClick={manejarAlternarMovil}>
             <ListItemText primary="Inicio" />
